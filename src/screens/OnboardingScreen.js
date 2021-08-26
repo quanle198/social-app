@@ -62,19 +62,19 @@ const OnboardingScreen = ({ navigation }) => {
             pages={[
                 {
                     backgroundColor: '#a6e4d0',
-                    image: <Image source={require('../assets/onboarding-img1.png')} />,
+                    image: <Image source={require('../../assets/onboarding-img1.png')} />,
                     title: 'Connect to the world',
                     subtitle: 'A New Way To Connect With The World',
                 },
                 {
                     backgroundColor: '#fdeb93',
-                    image: <Image source={require('../assets/onboarding-img2.png')} />,
+                    image: <Image source={require('../../assets/onboarding-img2.png')} />,
                     title: 'Share your favorite',
                     subtitle: 'Share Your Thougths With Similar Kind of People',
                 },
                 {
                     backgroundColor: '#e9bcde',
-                    image: <Image source={require('../assets/onboarding-img3.png')} />,
+                    image: <Image source={require('../../assets/onboarding-img3.png')} />,
                     title: 'Become the star',
                     subtitle: 'Let The Spot Ligh Capture You',
                 }
