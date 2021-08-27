@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "599110756721",
+    "project_id": "fx-social-app",
+    "storage_bucket": "fx-social-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:599110756721:android:20d86aefea84691371eed0",
+        "android_client_info": {
+          "package_name": "com.socialapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "599110756721-oltbn9t91fu5q8sck6rkd6mhapcoogpp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGqh_h-Ddf9kWduUPRsMndanQAk9JtKPQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "599110756721-oltbn9t91fu5q8sck6rkd6mhapcoogpp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
