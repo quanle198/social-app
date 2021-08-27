@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
     TouchableOpacity,
     Image,
@@ -10,10 +10,12 @@ import FormButton from '../components/FormButton';
 import FormInput from '../components/FormInput';
 import SocialButton from '../components/SocialButton';
 import AntDesign from 'react-native-vector-icons/AntDesign'
+import { AuthContext } from '../navigation/AuthProvider';
 
 const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const {login} = useContext(AuthContext);
     return (
         <View style={styles.container}>
             <Image
@@ -44,7 +46,7 @@ const LoginScreen = ({ navigation }) => {
 
             <FormButton
                 buttonTitle='Sign in'
-                onPress={() => alert('Sign in clicked!')}
+                onPress={() => login(email, password)}
             />
 
             <TouchableOpacity style={styles.forgotButton} onPress={() => {}}>

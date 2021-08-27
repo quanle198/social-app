@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
     TouchableOpacity,
     Image,
@@ -9,12 +9,15 @@ import {
 import FormButton from '../components/FormButton';
 import FormInput from '../components/FormInput';
 import SocialButton from '../components/SocialButton';
-import AntDesign from 'react-native-vector-icons/AntDesign'
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import { AuthContext } from '../navigation/AuthProvider';
 
-const LoginScreen = ({ navigation }) => {
+const SignupScreen = ({ navigation }) => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState();
+
+    const {register} = useContext(AuthContext);
     return (
         <View style={styles.container}>
 
@@ -48,7 +51,7 @@ const LoginScreen = ({ navigation }) => {
 
             <FormButton
                 buttonTitle='Sign up'
-                onPress={() => alert('Sign up clicked!')}
+                onPress={() => register(email, password)}
             />
 
             <View style={styles.textPrivate}>
@@ -126,4 +129,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default LoginScreen;
+export default SignupScreen;
