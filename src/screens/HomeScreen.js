@@ -7,10 +7,10 @@ import {
 import { AuthContext } from '../navigation/AuthProvider';
 
 const HomeScreen = ({ navigation }) => {
-    const {logout} = useContext(AuthContext);
+    const {user, logout} = useContext(AuthContext);
     return (
         <View>
-            <Text>Home Screen: {}</Text>
+            <Text>Home Screen: {user.uid}</Text>
             <Button title='Log out' onPress={() => logout()}></Button>
         </View>
     )

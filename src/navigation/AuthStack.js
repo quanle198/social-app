@@ -6,6 +6,8 @@ import SignupScreen from '../screens/SignupScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+
 const Stack = createStackNavigator();
 
 const AuthStack = () => {
@@ -21,7 +23,12 @@ const AuthStack = () => {
                 } else {
                     setIsFirstLaunch(false);
                 }
-            })
+            });
+
+        GoogleSignin.configure({
+            webClientId: '599110756721-oltbn9t91fu5q8sck6rkd6mhapcoogpp.apps.googleusercontent.com',
+        });
+        
     }, []);
 
     if (isFirstLaunch === null) {
@@ -34,32 +41,32 @@ const AuthStack = () => {
 
     return (
         <Stack.Navigator
-            initialRouteName={routeName} 
+            initialRouteName={routeName}
         >
-            <Stack.Screen name='Onboarding' component={OnboardingScreen} options={{header: () => null}}/>
-            <Stack.Screen name='Login' component={LoginScreen} options={{header: () => null}}/>
-            <Stack.Screen 
-            name='Signup' 
-            component={SignupScreen} 
-            options={({navigation}) => ({
-                title: '',
-                headerStyle:{
-                    backgroundColor: '#f9fafd',
-                    shadowColor:'#f9fafd',
-                    elevation: 0
-                },
-                headerLeft: () => (
-                    <View style={{marginLeft: 10 }}>
-                        <FontAwesome.Button
-                            name='long-arrow-left'
-                            size={25}
-                            backgroundColor='#f9fafd'
-                            color='#333'
-                            onPress={() => navigation.navigate('Login')}
-                        />
-                    </View>
-                )
-            })}
+            <Stack.Screen name='Onboarding' component={OnboardingScreen} options={{ header: () => null }} />
+            <Stack.Screen name='Login' component={LoginScreen} options={{ header: () => null }} />
+            <Stack.Screen
+                name='Signup'
+                component={SignupScreen}
+                options={({ navigation }) => ({
+                    title: '',
+                    headerStyle: {
+                        backgroundColor: '#f9fafd',
+                        shadowColor: '#f9fafd',
+                        elevation: 0
+                    },
+                    headerLeft: () => (
+                        <View style={{ marginLeft: 10 }}>
+                            <FontAwesome.Button
+                                name='long-arrow-left'
+                                size={25}
+                                backgroundColor='#f9fafd'
+                                color='#333'
+                                onPress={() => navigation.navigate('Login')}
+                            />
+                        </View>
+                    )
+                })}
             />
         </Stack.Navigator>
     );

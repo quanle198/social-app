@@ -1205,6 +1205,11 @@
   resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-12.7.3.tgz#ff225a8661a6197a562ca99bc5451f0e80e202b7"
   integrity sha512-BksvXxIJLxxnAY0v476XxIZA9F46p+wRCX5VMpLBnfXN7BThpT1nl0aqTs1Da4pIEmYTOuGcV+afbs46uklQ4A==
 
+"@react-native-google-signin/google-signin@^7.0.0-alpha.1":
+  version "7.0.0-alpha.1"
+  resolved "https://registry.yarnpkg.com/@react-native-google-signin/google-signin/-/google-signin-7.0.0-alpha.1.tgz#83ec417045c9f1f707000d2317087f5c3f01e4ff"
+  integrity sha512-af71JBSE96QCp2eKVCAEvtdK8Uc5s9QHuls/yYel6+0U+Q8S8ZCxsEL+lbHyO7IvG2N+b7SwCDOCzBis1odaAw==
+
 "@react-native/assets@1.0.0":
   version "1.0.0"
   resolved "https://registry.npmjs.org/@react-native/assets/-/assets-1.0.0.tgz"

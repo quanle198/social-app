@@ -9,10 +9,18 @@
       "client_info": {
         "mobilesdk_app_id": "1:599110756721:android:20d86aefea84691371eed0",
         "android_client_info": {
-          "package_name": "com.socialapp"
+          "package_name": "com.fx.socialapp"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "599110756721-gj87vttmh3vcre9ptutv3vtcskqne2lr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fx.socialapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
         {
           "client_id": "599110756721-oltbn9t91fu5q8sck6rkd6mhapcoogpp.apps.googleusercontent.com",
           "client_type": 3

@@ -69,21 +69,25 @@ const SignupScreen = ({ navigation }) => {
                 </Text>
             </View>
 
-            <SocialButton
-                buttonTitle='Sign up with Facebook'
-                btnType='facebook'
-                color='#4867aa'
-                backgroundColor='#e6eaf4'
-                onPress={() => { }}
-            />
+            {Platform.OS === 'android' ? (
+                <View>
+                    <SocialButton
+                        buttonTitle='Sign UP with Facebook'
+                        btnType='facebook'
+                        color='#4867aa'
+                        backgroundColor='#e6eaf4'
+                        onPress={() => { }}
+                    />
 
-            <SocialButton
-                buttonTitle='Sign up with Google'
-                btnType='google'
-                color='#de4d41'
-                backgroundColor='#f5e7ea'
-                onPress={() => { }}
-            />
+                    <SocialButton
+                        buttonTitle='Sign UP with Google'
+                        btnType='google'
+                        color='#de4d41'
+                        backgroundColor='#f5e7ea'
+                        onPress={() => { }}
+                    />
+                </View>) : null
+            }
 
             <TouchableOpacity style={styles.navButton} onPress={() => { navigation.navigate('Login') }}>
                 <Text style={styles.navButtonText}>Have an account? Sign in!</Text>
