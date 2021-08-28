@@ -1,4 +1,4 @@
-package com.socialapp;
+package com.fx.socialapp;
 
 import com.facebook.react.ReactActivity;
 
