@@ -16,7 +16,7 @@ import { AuthContext } from '../navigation/AuthProvider';
 const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    const { login, googlelogin } = useContext(AuthContext);
+    const { login, googlelogin, fblogin } = useContext(AuthContext);
     return (
         <View style={styles.container}>
             <Image
@@ -60,7 +60,7 @@ const LoginScreen = ({ navigation }) => {
                         btnType='facebook'
                         color='#4867aa'
                         backgroundColor='#e6eaf4'
-                        onPress={() => { }}
+                        onPress={() => { fblogin() }}
                     />
 
                     <SocialButton
