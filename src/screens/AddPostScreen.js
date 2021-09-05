@@ -1,17 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     View,
-    StyleSheet
+    StyleSheet,
+    Platform
 } from 'react-native';
 
-import { InputWrapper, InputField } from '../styles/AddPost';
+import { InputWrapper, InputField, ImageField } from '../styles/AddPostStyle';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
+import ImagePicker from 'react-native-image-crop-picker';
 
 const AddPostScreen = ({ navigation }) => {
+
+    const [image, setImage] = useState('');
+
+    const takePhoto = () => {
+        ImagePicker.openCamera({
+            width: 300,
+            height: 400,
+            cropping: true,
+        }).then(image => {
+            console.log(image);
+            const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path
+            setImage(imageUri)
+        });
+    }
+
+    const choosePhoto = () => {
+        ImagePicker.openPicker({
+            compressImageMaxWidth: 300,
+            compressImageMaxHeight: 400,
+            cropping: true
+        }).then(image => {
+            console.log(image);
+            const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path
+            setImage(imageUri)
+        });
+    }
     return (
         <View style={styles.container}>
             <InputWrapper>
+                {image ? <ImageField source={{ uri: image }} /> : null}
                 <InputField
                     placeholder="What's on your mind?"
                     multiline
@@ -22,14 +51,14 @@ const AddPostScreen = ({ navigation }) => {
                 <ActionButton.Item
                     buttonColor='#9b59b6'
                     title="Take Photo"
-                    onPress={() => console.log("notes tapped!")}
+                    onPress={() => takePhoto()}
                 >
                     <Icon name="camera-outline" style={styles.actionButtonIcon} />
                 </ActionButton.Item>
                 <ActionButton.Item
                     buttonColor='#3498db'
                     title="Choose Photo"
-                    onPress={() => { }}>
+                    onPress={() => choosePhoto()}>
                     <Icon name="md-images-outline" style={styles.actionButtonIcon} />
                 </ActionButton.Item>
             </ActionButton>

@@ -15,3 +15,8 @@ export const InputField = styled.TextInput`
     font-size: 24px;
     width: 90%;
 `;
+
+export const ImageField = styled.Image`
+    width: 350px;
+    height: 250px;
+`;
