@@ -798,7 +798,7 @@
     "minimatch" "^3.0.4"
     "strip-json-comments" "^3.1.1"
 
-"@expo/config-plugins@^3.0.7":
+"@expo/config-plugins@^3.1.0":
   "integrity" "sha512-V5qxaxCAExBM0TXmbU1QKiZcAGP3ecu7KXede8vByT15cro5PkcWu2sSdJCYbHQ/gw6Vf/i8sr8gKlN8V8TSLg=="
   "resolved" "https://registry.npmjs.org/@expo/config-plugins/-/config-plugins-3.1.0.tgz"
   "version" "3.1.0"
@@ -1213,19 +1213,24 @@
   "resolved" "https://registry.npmjs.org/@react-native-community/eslint-plugin/-/eslint-plugin-1.1.0.tgz"
   "version" "1.1.0"
 
-"@react-native-firebase/app@^12.7.3", "@react-native-firebase/app@12.7.4":
-  "integrity" "sha512-ao8jSyevNItQ1sFhn2yAS7BIMGChbQVfJj5/9bsJ7OdS2gQx6vczh6N0QB7AlGfzpYT/w+4xebJvnBs21V3jpg=="
-  "resolved" "https://registry.npmjs.org/@react-native-firebase/app/-/app-12.7.4.tgz"
-  "version" "12.7.4"
+"@react-native-firebase/app@^12.7.5", "@react-native-firebase/app@12.7.5":
+  "integrity" "sha512-q3NjTHiO4zjPmXopuRuBxbJw5rX5JqqQmE6a+77ONEI+yCx1VF/p+545+plOY1HhA8PqUuWfbqZlbWlYo5K5IA=="
+  "resolved" "https://registry.npmjs.org/@react-native-firebase/app/-/app-12.7.5.tgz"
+  "version" "12.7.5"
   dependencies:
-    "@expo/config-plugins" "^3.0.7"
+    "@expo/config-plugins" "^3.1.0"
     "opencollective-postinstall" "^2.0.1"
     "superstruct" "^0.6.2"
 
-"@react-native-firebase/auth@^12.7.3":
-  "integrity" "sha512-EBhg9Sddu6ljOx/iWUe7z9Ie5zK1ejnRWdkiTueEItmRxGgF6BTvbqx4yxcZ2RaxrAXXXCvgYFLVIl0+PH6Bpg=="
-  "resolved" "https://registry.npmjs.org/@react-native-firebase/auth/-/auth-12.7.4.tgz"
-  "version" "12.7.4"
+"@react-native-firebase/auth@^12.7.5":
+  "integrity" "sha512-skpbmPJl2YvkS9eGuJ8mSnlr4sVjkMzPFi98kEAOuOTHmRB72/YXVqR72AS4HFBxvGJDIRtZJCeLm+Vc2Ngcrw=="
+  "resolved" "https://registry.npmjs.org/@react-native-firebase/auth/-/auth-12.7.5.tgz"
+  "version" "12.7.5"
+
+"@react-native-firebase/storage@^12.7.5":
+  "integrity" "sha512-ElwvlB841wpU5Ul94o9EWZ/c28THWl0I58OSzimhPl3N4wj8Wk27Re8+eTExCwkZXfOOslMayfE8utUOvSE8Hw=="
+  "resolved" "https://registry.npmjs.org/@react-native-firebase/storage/-/storage-12.7.5.tgz"
+  "version" "12.7.5"
 
 "@react-native-google-signin/google-signin@^7.0.0-alpha.1":
   "integrity" "sha512-LhI4eycxYx5T5IBB0kinEoE71Who3Fk67Y3z13PyloVa0XpgVc/ikYZzeZpFXoVvJmsHexS/NYGpd7Nau1IYQg=="

@@ -2,17 +2,23 @@ import React, { useState } from 'react';
 import {
     View,
     StyleSheet,
-    Platform
+    Platform,
+    Alert,
+    ActivityIndicator,
+    Text
 } from 'react-native';
 
-import { InputWrapper, InputField, ImageField } from '../styles/AddPostStyle';
+import { InputWrapper, InputField, ImageField, SubmitBtn, SubmitBtnText, StatusWrapper } from '../styles/AddPostStyle';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ImagePicker from 'react-native-image-crop-picker';
+import storage from '@react-native-firebase/storage';
 
 const AddPostScreen = ({ navigation }) => {
 
     const [image, setImage] = useState('');
+    const [uploading, setUploading] = useState(false);
+    const [transferred, setTransferred] = useState(0);
 
     const takePhoto = () => {
         ImagePicker.openCamera({
@@ -24,18 +30,41 @@ const AddPostScreen = ({ navigation }) => {
             const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path
             setImage(imageUri)
         });
-    }
+    };
 
     const choosePhoto = () => {
         ImagePicker.openPicker({
-            compressImageMaxWidth: 300,
-            compressImageMaxHeight: 400,
+            width: 1200,
+            height: 780,
             cropping: true
         }).then(image => {
             console.log(image);
             const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path
             setImage(imageUri)
         });
+    };
+
+    const submitPost = async () => {
+        const imageUri = image;
+        let filename = imageUri.substring(imageUri.lastIndexOf('/') + 1);
+
+        setUploading(true);
+        setTransferred(0);
+
+        const task = storage().ref(filename).putFile(imageUri);
+        task.on('state_changed', taskSnapshot => {
+            console.log(`${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`);
+            setTransferred(Math.round(taskSnapshot.bytesTransferred / taskSnapshot.totalBytes) * 100)
+        });
+
+        try {
+            await task;
+            setUploading(false);
+            Alert.alert('Image uploaded!', 'Your Image has been uploaded to the firebase cloud storage successfully!')
+        } catch (error) {
+            console.log(error)
+        }
+        setImage(null)
     }
     return (
         <View style={styles.container}>
@@ -46,6 +75,16 @@ const AddPostScreen = ({ navigation }) => {
                     multiline
                     numberOfLines={4}
                 />
+                {uploading ? (
+                    <StatusWrapper>
+                        <Text>{transferred} % Completed!</Text>
+                        <ActivityIndicator size='large' color='#333'></ActivityIndicator>
+                    </StatusWrapper>
+                ) : (
+                    <SubmitBtn onPress={() => submitPost()}>
+                        <SubmitBtnText>Post</SubmitBtnText>
+                    </SubmitBtn>
+                )}
             </InputWrapper>
             <ActionButton buttonColor="rgba(231,76,60,1)">
                 <ActionButton.Item
