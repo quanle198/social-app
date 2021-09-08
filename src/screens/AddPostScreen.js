@@ -45,13 +45,20 @@ const AddPostScreen = ({ navigation }) => {
     };
 
     const submitPost = async () => {
+        const imageUrl = await uploadImage();
+        console.log('Image url: ', imageUrl);
+
+    }
+    const uploadImage = async () => {
         const imageUri = image;
         let filename = imageUri.substring(imageUri.lastIndexOf('/') + 1);
 
         setUploading(true);
         setTransferred(0);
 
-        const task = storage().ref(filename).putFile(imageUri);
+        const storageRef = storage().ref(`photos/${filename}`);
+        const task = storageRef.putFile(imageUri);
+
         task.on('state_changed', taskSnapshot => {
             console.log(`${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`);
             setTransferred(Math.round(taskSnapshot.bytesTransferred / taskSnapshot.totalBytes) * 100)
@@ -59,12 +66,15 @@ const AddPostScreen = ({ navigation }) => {
 
         try {
             await task;
+            const url = await storageRef.getDownloadURL();
             setUploading(false);
-            Alert.alert('Image uploaded!', 'Your Image has been uploaded to the firebase cloud storage successfully!')
+            setImage(null);
+            Alert.alert('Image uploaded!', 'Your Image has been uploaded to the firebase cloud storage successfully!');
+            return url;
         } catch (error) {
-            console.log(error)
+            console.log(error);
+            return null;
         }
-        setImage(null)
     }
     return (
         <View style={styles.container}>
