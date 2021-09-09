@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { windowHeight, windowWidth } from '../utils/Dimentions';
 
 export const Container = styled.View`
     flex: 1;
@@ -49,6 +50,7 @@ export const PostText = styled.Text`
     font-family: 'Lato-Regular';
     padding-left: 15px;
     padding-right: 15px;
+    width: ${windowWidth};  
 `;
 
 export const PostImg = styled.Image`

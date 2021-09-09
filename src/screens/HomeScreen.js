@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
     Container,
 } from '../styles/FeedStyles'
 import PostCard from '../components/PostCard';
-import { FlatList } from 'react-native'
+import { FlatList } from 'react-native';
+import firestore from '@react-native-firebase/firestore';
 
 const Posts = [
     {
@@ -70,11 +71,56 @@ const Posts = [
 ];
 
 const HomeScreen = ({ navigation }) => {
+    const [posts, setPosts] = useState(null);
+    const [loading, setLoading] = useState(true);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const list = [];
+                await firestore()
+                    .collection('Posts')
+                    .get()
+                    .then(querySnapshot => {
+                        console.log('Total users: ', querySnapshot.size);
+
+                        querySnapshot.forEach(documentSnapshot => {
+                            // console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+                            const { userId, post, postImg, postTime, likes, comments } = documentSnapshot.data();
+                            list.push({
+                                id: documentSnapshot.id,
+                                userId: userId,
+                                userName: 'User name',
+                                userImg: require('../../assets/users/user-7.jpg'),
+                                postTime: postTime,
+                                post,
+                                postImg,
+                                liked: false,
+                                likes,
+                                comments
+                            })
+                        });
+                    });
+
+                setPosts(list);
+
+                if (loading) {
+                    setLoading(false);
+                };
+
+                console.log('Posts: ', posts);
+            } catch (error) {
+                console.log(error)
+            }
+        };
+
+        fetchData();
+
+    }, [])
     return (
         <Container>
             <FlatList
-                data={Posts}
+                data={posts}
                 renderItem={({ item }) =>
                     <PostCard item={item} />
                 }
