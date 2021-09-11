@@ -50,7 +50,7 @@ export const PostText = styled.Text`
     font-family: 'Lato-Regular';
     padding-left: 15px;
     padding-right: 15px;
-    width: ${windowWidth};  
+    width: ${windowWidth}px;  
 `;
 
 export const PostImg = styled.Image`

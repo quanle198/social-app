@@ -4,7 +4,7 @@ import {
     Container,
 } from '../styles/FeedStyles'
 import PostCard from '../components/PostCard';
-import { FlatList } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 
 const Posts = [
@@ -73,60 +73,70 @@ const Posts = [
 const HomeScreen = ({ navigation }) => {
     const [posts, setPosts] = useState(null);
     const [loading, setLoading] = useState(true);
+    const fetchPosts = async () => {
+        try {
+            const list = [];
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const list = [];
-                await firestore()
-                    .collection('Posts')
-                    .get()
-                    .then(querySnapshot => {
-                        console.log('Total users: ', querySnapshot.size);
+            await firestore()
+                .collection('Posts')
+                .orderBy('postTime', 'desc')
+                .get()
+                .then((querySnapshot) => {
+                    // console.log('Total Posts: ', querySnapshot.size);
 
-                        querySnapshot.forEach(documentSnapshot => {
-                            // console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
-                            const { userId, post, postImg, postTime, likes, comments } = documentSnapshot.data();
-                            list.push({
-                                id: documentSnapshot.id,
-                                userId: userId,
-                                userName: 'User name',
-                                userImg: require('../../assets/users/user-7.jpg'),
-                                postTime: postTime,
-                                post,
-                                postImg,
-                                liked: false,
-                                likes,
-                                comments
-                            })
+                    querySnapshot.forEach((doc) => {
+                        const {
+                            userId,
+                            post,
+                            postImg,
+                            postTime,
+                            likes,
+                            comments,
+                        } = doc.data();
+                        list.push({
+                            id: doc.id,
+                            userId,
+                            userName: 'Test Name',
+                            userImg:
+                                'https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg',
+                            postTime: postTime,
+                            post,
+                            postImg,
+                            liked: false,
+                            likes,
+                            comments,
                         });
                     });
+                });
 
-                setPosts(list);
+            setPosts(list);
 
-                if (loading) {
-                    setLoading(false);
-                };
-
-                console.log('Posts: ', posts);
-            } catch (error) {
-                console.log(error)
+            if (loading) {
+                setLoading(false);
             }
-        };
 
-        fetchData();
+            console.log('Posts: ', posts);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+
+    useEffect(() => {
+        fetchPosts();
 
     }, [])
     return (
         <Container>
-            <FlatList
+            {loading ? <View><Text>Loading</Text></View> : <FlatList
                 data={posts}
                 renderItem={({ item }) =>
                     <PostCard item={item} />
                 }
                 keyExtractor={item => item.id}
                 showsVerticalScrollIndicator={false}
-            />
+            />}
+
         </Container>
     )
 };
