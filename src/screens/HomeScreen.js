@@ -4,8 +4,9 @@ import {
     Container,
 } from '../styles/FeedStyles'
 import PostCard from '../components/PostCard';
-import { FlatList, Text, View } from 'react-native';
+import { FlatList, Text, View, Alert } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 
 const Posts = [
     {
@@ -73,6 +74,8 @@ const Posts = [
 const HomeScreen = ({ navigation }) => {
     const [posts, setPosts] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [deleted, setDeleted] = useState(false)
+
     const fetchPosts = async () => {
         try {
             const list = [];
@@ -115,28 +118,91 @@ const HomeScreen = ({ navigation }) => {
                 setLoading(false);
             }
 
-            console.log('Posts: ', posts);
         } catch (e) {
             console.log(e);
         }
     };
 
+    const deletePost = (postId) => {
+        console.log("Current Post ID: ", postId);
+        firestore()
+            .collection('Posts')
+            .doc(postId)
+            .get()
+            .then(documentSnapshot => {
+                if (documentSnapshot.exists) {
+                    const { postImg } = documentSnapshot.data();
+
+                    if (postImg != null) {
+                        const imageRef = storage().refFromURL(postImg);
+                        console.log(`imageRef: ${imageRef}`);
+
+                        imageRef
+                            .delete()
+                            .then(() => {
+                                console.log(`${postImg} has been deleted successfully!`);
+                                deleteFirestoreData(postId);
+                                setDeleted(true);
+                            })
+                            .catch(e => console.log('Error while deleting image', e))
+                    }
+                    else {
+                        deleteFirestoreData(postId);
+                        setDeleted(true);
+                    }
+                }
+            })
+    }
+
+    const deleteFirestoreData = (postId) => {
+        firestore()
+            .collection('Posts')
+            .doc(postId)
+            .delete()
+            .then(() => {
+                Alert.alert('Post Deleted!', 'Your Post has been deleted successfully!');
+            })
+            .catch(e => console.log('Error while deleting post', e))
+    }
+
+    const handleDelete = (postId) => {
+        Alert.alert(
+            'Delete post',
+            'Are your sure?',
+            [
+                {
+                    text: 'Cancel',
+                    onPress: () => console.log('Cancel Pressed!'),
+                    style: 'cancel'
+                },
+                {
+                    text: 'Confirm',
+                    onPress: () => deletePost(postId)
+                }
+            ],
+            { cancelable: false }
+        )
+    }
 
     useEffect(() => {
         fetchPosts();
-
     }, [])
+
+    useEffect(() => {
+        fetchPosts();
+        setDeleted(false);
+    }, [deleted])
+
     return (
         <Container>
             {loading ? <View><Text>Loading</Text></View> : <FlatList
                 data={posts}
                 renderItem={({ item }) =>
-                    <PostCard item={item} />
+                    <PostCard item={item} onDelete={handleDelete} />
                 }
                 keyExtractor={item => item.id}
                 showsVerticalScrollIndicator={false}
             />}
-
         </Container>
     )
 };

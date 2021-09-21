@@ -18,7 +18,7 @@ import { AuthContext } from '../navigation/AuthProvider';
 
 const AddPostScreen = ({ navigation }) => {
     const { user, logout } = useContext(AuthContext);
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState(null);
     const [uploading, setUploading] = useState(false);
     const [transferred, setTransferred] = useState(0);
     const [post, setPost] = useState(null);
@@ -71,6 +71,10 @@ const AddPostScreen = ({ navigation }) => {
 
     }
     const uploadImage = async () => {
+        debugger
+        if (image == null) {
+            return null;
+        }
         const uploadUri = image;
         let filename = uploadUri.substring(uploadUri.lastIndexOf('/') + 1);
 
